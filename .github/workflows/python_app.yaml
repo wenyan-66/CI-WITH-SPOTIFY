@@ -3,6 +3,7 @@
 
 # TODO: Change the workflow name to something more specific
 name: Python APP Quality Check CI
+
 # This defines the triggers for the workflow
 # i.e. when the workflow will run
 on:
@@ -27,52 +28,41 @@ jobs:
     - uses: actions/checkout@v4
 
     # This step sets up Python on the runner
-    # TODO: Change the Python version to 3.12
-     - name: Set up Python 3.12
+    - name: Set up Python 3.12
       uses: actions/setup-python@v3
       with:
         python-version: "3.12"
 
-    # TODO: Install uv on the runner
-     - name: Install the latest version of uv
-       uses: astral-sh/setup-uv@v7
+    # Install uv on the runner
+    - name: Install the latest version of uv
+      uses: astral-sh/setup-uv@v7
 
-
-    # The next steps use *run* to execute commands on the runner
-    # This is just like typing commands in the Codespace terminal
-
-    # This step installs dependencies
-    # TODO: Replace the run block, using `uv` to sync the environment
+    # Install dependencies
     - name: Install dependencies
       run: |
         uv sync
 
-    # This step runs unit tests with pytest
-    # TODO: Update the run block. Use: uv run -m pytest
-    # (we need -m so that our tests can find our notebook code)
+    # Run unit tests with pytest
     - name: Test with pytest
       run: |
         uv run -m pytest
 
-    # This step runs the linter against the codebase
-    # TODO: Replace the run block to use our preferred linter
+    # Lint with ruff
     - name: Lint with ruff
       run: |
         uvx ruff check
 
-    # TODO: Add steps to run formatting steps and type checking
-
-    # Use uvx to run ruff format
+    # Format with ruff
     - name: Format with ruff
       run: |
         uvx ruff format
   
-    # Use uvx to run isort for import sorting
+    # Sort imports with isort
     - name: Sort imports with isort
       run: |
         uvx isort .
   
-    # Use uvx to run ty to type check
+    # Type check with ty
     - name: Type check with ty
       run: |
         uvx ty check
