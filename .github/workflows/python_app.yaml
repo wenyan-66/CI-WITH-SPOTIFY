@@ -63,7 +63,7 @@ jobs:
     # TODO: Add steps to run formatting steps and type checking
 
     # Use uvx to run ruff format
-    - name: Lint with ruff
+    - name: Format with ruff
       run: |
         uvx ruff format
   
